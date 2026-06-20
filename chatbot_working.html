@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlacementGuru - Your AI Placement Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+            color: white;
+        }
+        
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .chatbot-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: slideUp 0.8s ease-out;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .chatbot-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .chatbot-description {
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .open-chatbot-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .open-chatbot-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.6);
+        }
+        
+        .open-chatbot-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .or-text {
+            margin: 20px 0;
+            color: #999;
+            font-size: 0.9em;
+        }
+        
+        .embed-option {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .embed-container {
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .embed-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .info-box h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .info-box p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .topics-list ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+            list-style: none;
+        }
+        
+        .topics-list li {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 3px solid white;
+        }
+        
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .header p {
+                font-size: 1em;
+            }
+            
+            .chatbot-container {
+                padding: 20px;
+            }
+            
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .open-chatbot-btn {
+                padding: 15px 30px;
+                font-size: 1em;
+            }
+            
+            .embed-container iframe {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                margin-top: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.5em;
+            }
+            
+            .header p {
+                font-size: 0.9em;
+            }
+            
+            .chatbot-container {
+                padding: 15px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .topics-list ul {
+                grid-template-columns: 1fr;
+            }
+            
+            .open-chatbot-btn {
+                padding: 12px 24px;
+                font-size: 0.9em;
+            }
+            
+            .embed-container iframe {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>🎓 PlacementGuru</h1>
+            <p>Your AI-Powered Placement Assistant</p>
+            <div class="features">
+                <div class="feature-tag">📚 Interview Prep</div>
+                <div class="feature-tag">📄 Resume Tips</div>
+                <div class="feature-tag">💻 DSA Learning</div>
+                <div class="feature-tag">🏗️ System Design</div>
+                <div class="feature-tag">🌐 Tech Topics</div>
+                <div class="feature-tag">🏢 Company Prep</div>
+                <div class="feature-tag">👔 HR Q&A</div>
+                <div class="feature-tag">🎯 Aptitude</div>
+            </div>
+        </div>
+        
+        <!-- Chatbot Section -->
+        <div class="chatbot-container">
+            <h2 class="chatbot-title">Start Your Journey to Success 🚀</h2>
+            <p class="chatbot-description">
+                Click the button below to open your AI placement assistant chatbot. 
+                Get instant answers to all your placement preparation questions!
+            </p>
+            
+            <!-- Direct Button to Open Chatbot (GUARANTEED TO WORK) -->
+            <a href="https://console.dialogflow.com/api-client/demo/embedded/b95efb7b-d0f3-4571-a9cf-b0d6c04d37d4" target="_blank">
+                <button class="open-chatbot-btn">💬 Open Chatbot Now</button>
+            </a>
+            
+            <div class="or-text">OR</div>
+            
+            <!-- Embed Option -->
+            <div class="embed-option">
+                <p style="color: #666; margin-bottom: 15px;">Chat directly below:</p>
+                <div class="embed-container">
+                    <iframe src="https://console.dialogflow.com/api-client/demo/embedded/b95efb7b-d0f3-4571-a9cf-b0d6c04d37d4"></iframe>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Info Box -->
+        <div class="info-box">
+            <h3>Welcome to Your Placement Preparation Hub!</h3>
+            <p>
+                Get expert guidance on every aspect of your placement journey. 
+                Ask our AI assistant anything about interviews, resume building, technical concepts, 
+                company-specific preparation, and career planning.
+            </p>
+            
+            <div class="topics-list">
+                <ul>
+                    <li>✓ Interview Preparation</li>
+                    <li>✓ Resume Building</li>
+                    <li>✓ DSA Learning Path</li>
+                    <li>✓ System Design</li>
+                    <li>✓ Computer Networks</li>
+                    <li>✓ Operating Systems</li>
+                    <li>✓ Database Management</li>
+                    <li>✓ Company Preparation</li>
+                    <li>✓ HR Interview Q&A</li>
+                    <li>✓ Aptitude Resources</li>
+                    <li>✓ Career Guidance</li>
+                    <li>✓ Placement Tips</li>
+                </ul>
+            </div>
+            
+            <p style="margin-top: 20px;">
+                <strong>💡 Pro Tip:</strong> Start by asking "What can you help me with?" 
+                or choose a specific topic like "How to prepare for interviews?"
+            </p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>PlacementGuru | Your AI Placement Assistant | Powered by Dialogflow</p>
+            <p style="margin-top: 10px;">© 2026 | Helping Engineers Ace Their Placements</p>
+        </div>
+    </div>
+</body>
+</html>
